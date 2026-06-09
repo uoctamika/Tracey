@@ -1,0 +1,24 @@
+name: Testing and Quality
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: codeberg-tiny-lazy
+
+    container:
+      image: archlinux:latest
+
+    steps:
+      - name: Install base tools
+        run: pacman -Syu --noconfirm git nodejs npm gcc clang make cmake
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: compile
+        uses: gcc bootstrap/index.c -o traceyc -Wall -Wextra
+
+      - name: Run
+        uses: ./traceyc index.trc -o app -Wall -Wextra
