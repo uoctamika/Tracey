@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: compile
-        uses: gcc bootstrap/index.c -o traceyc -Wall -Wextra
+        run: gcc bootstrap/index.c -o traceyc -Wall -Wextra
 
       - name: Run
-        uses: ./traceyc index.trc -o app -Wall -Wextra
+        run: ./traceyc index.trc -o app -Wall -Wextra
