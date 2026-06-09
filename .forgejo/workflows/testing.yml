@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: codeberg-tiny-lazy
+    runs-on: codeberg-small-lazy
 
     container:
       image: archlinux:latest
@@ -18,7 +18,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: compile
-        run: gcc bootstrap/index.c -o traceyc -Wall -Wextra
+        working-directory: bootstrap
+        run: make -f GNUmake -j 2
 
       - name: Run
-        run: ./traceyc index.trc -o app -Wall -Wextra
+        working-directory: bootstrap
+        run: ./bin/traceyc index.trc -o app -Wall
