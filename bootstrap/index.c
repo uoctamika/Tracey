@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <tracey/argument/args.h>
+#include <tracey/argument/argument.h>
 
 int main(int argc, char **argv)
 {
