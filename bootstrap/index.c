@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <tracey/argument/argument.h>
+#include <tracey/compile/compile.h>
 
 int main(int argc, char **argv)
 {
@@ -9,7 +10,7 @@ int main(int argc, char **argv)
 
     debug_print_args(&opts);
 
-  /* compile(&opts); */
+    compile(&opts);
 
     return 0;
 }
