@@ -4,11 +4,8 @@ on:
   pull_request:
 
 jobs:
-  build-and-test:
+  test:
     runs-on: codeberg-small-lazy
-
-    container:
-      image: codeberg.org/uoctamika/tracey-ci:latest
 
     strategy:
       fail-fast: false
@@ -16,30 +13,39 @@ jobs:
       matrix:
         include:
           - name: gcc-x86_64
+            image: codeberg.org/uoctamika/tracey:gcc
             cc: gcc
             arch: x86_64
 
           - name: clang-x86_64
+            image: codeberg.org/uoctamika/tracey:clang
             cc: clang
             arch: x86_64
 
           - name: gcc-i686
+            image: codeberg.org/uoctamika/tracey:gcc
             cc: gcc
             arch: i686
 
           - name: clang-i686
+            image: codeberg.org/uoctamika/tracey:clang
             cc: clang
             arch: i686
 
           - name: gcc-aarch64
+            image: codeberg.org/uoctamika/tracey:gcc
             cc: aarch64-linux-gnu-gcc
             arch: aarch64
 
           - name: gcc-armhf
+            image: codeberg.org/uoctamika/tracey:gcc
             cc: arm-linux-gnueabihf-gcc
             arch: armhf
 
     name: ${{ matrix.name }}
+
+    container:
+      image: ${{ matrix.image }}
 
     steps:
       - name: Checkout repository
@@ -47,6 +53,7 @@ jobs:
 
       - name: Toolchain information
         run: |
+          echo "Image    : ${{ matrix.image }}"
           echo "Compiler : ${{ matrix.cc }}"
           echo "Arch     : ${{ matrix.arch }}"
 
