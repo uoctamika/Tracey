@@ -18,6 +18,7 @@ steps:
       CC: ${CC}
       ARCH: ${ARCH}
     commands:
+      - pacman-key --init
       - pacman -Syu --noconfirm ${COMPILER} make
       - make
       - ./bin/traceyc index.trc -o app -Wall
