@@ -1,11 +1,23 @@
+matrix:
+  include:
+    - COMPILER: gcc
+      CC: gcc
+      ARCH: x86_64
+    - COMPILER: clang
+      CC: clang
+      ARCH: x86_64
+
 when:
   - event: pull_request
 
 steps:
-  - name: testing
+  - name: ${COMPILER}-${ARCH}
     image: archlinux:latest
     directory: bootstrap
+    environment:
+      CC: ${CC}
+      ARCH: ${ARCH}
     commands:
-      - pacman -Syu --noconfirm gcc make git curl
+      - pacman -Syu --noconfirm ${COMPILER} make
       - make
       - ./bin/traceyc index.trc -o app -Wall
