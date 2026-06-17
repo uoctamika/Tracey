@@ -11,13 +11,13 @@ when:
   - event: pull_request
 
 steps:
-  - name: testing
+  - name: ${COMPILER}-${ARCH}
     image: archlinux:latest
     directory: bootstrap
     environment:
       CC: ${CC}
       ARCH: ${ARCH}
     commands:
-      - pacman -Syu --noconfirm ${COMPILER} make git
+      - pacman -Syu --noconfirm ${COMPILER} make
       - make
       - ./bin/traceyc index.trc -o app -Wall
