@@ -6,7 +6,10 @@ int main(int argc, char **argv)
 {
     TraceyOptions opts = {0};
 
-    parse_args(argc, argv, &opts);
+   if(!parse_args(argc, argv, &opts))
+   {
+      return 1;
+   }
 
     debug_print_args(&opts);
 
