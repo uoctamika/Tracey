@@ -19,6 +19,9 @@ steps:
       ARCH: ${ARCH}
     commands:
       - pacman-key --init
-      - pacman -Syu --noconfirm ${COMPILER} make
-      - make
-      - ./bin/traceyc index.trc -o app -Wall
+      - pacman -Syu --noconfirm ${COMPILER} make automake libtool autoconf
+      - autoreconf -fi
+      - mkdir -p build && cd build
+      - ../configure
+      - make V=1
+      - .traceyc ../index.trc -o app -Wall
